@@ -5,6 +5,38 @@ import { body } from "express-validator";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Registers a new user with a name, email, and password
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: mahdi
+ *               email:
+ *                 type: string
+ *                 example: mahdi@gmail.com
+ *               password:
+ *                 type: string
+ *                 example: 123456
+ *     responses:
+ *       201:
+ *         description: User successfully registered
+ *       500:
+ *         description: server erore
+ */
 router.post(
   "/register",
   [
