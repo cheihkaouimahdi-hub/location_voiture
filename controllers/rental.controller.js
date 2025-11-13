@@ -6,9 +6,10 @@ export const createRental = async (req, res) => {
   try {
     const { carId, startDate, endDate } = req.body;
     const userId = req.user._id;
+    
 
     if (!carId || !startDate || !endDate) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are eqruired" });
     }
 
     const car = await Car.findById(carId);
@@ -58,6 +59,12 @@ export const getUserRentals = async (req, res) => {
 // Mark a rental as paid (Cash on Delivery)
 export const markAsPaid = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    // تحقق من صحة الـ ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid rental ID" });
+    }
     const rental = await Rental.findById(req.params.id);
     if (!rental) {
       return res.status(404).json({ message: "Rental not found" });
